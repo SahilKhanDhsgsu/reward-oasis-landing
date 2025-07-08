@@ -1,109 +1,185 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, ShoppingBag, Gift, CreditCard, Users, Shield, CheckCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Star, ShoppingBag, Gift, CreditCard, Users, Shield, CheckCircle, Store, UserCheck, ArrowRight } from "lucide-react";
 
 const Index = () => {
+  const [userLoginOpen, setUserLoginOpen] = useState(false);
+  const [sellerLoginOpen, setSellerLoginOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50/30">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-              <Gift className="w-6 h-6 text-white" />
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Gift className="w-7 h-7 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">RewardHub</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">RewardHub</span>
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
-            <a href="#how-it-works" className="text-gray-700 hover:text-green-600 font-medium transition-colors">How It Works</a>
-            <a href="#rewards" className="text-gray-700 hover:text-green-600 font-medium transition-colors">Rewards</a>
-            <a href="#contact" className="text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
+            <a href="#home" className="text-gray-700 hover:text-green-600 font-medium transition-all hover:scale-105">Home</a>
+            <a href="#how-it-works" className="text-gray-700 hover:text-green-600 font-medium transition-all hover:scale-105">How It Works</a>
+            <a href="#rewards" className="text-gray-700 hover:text-green-600 font-medium transition-all hover:scale-105">Rewards</a>
+            <a href="#contact" className="text-gray-700 hover:text-green-600 font-medium transition-all hover:scale-105">Contact</a>
           </nav>
           
-          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
-            Sign Up Now
-          </Button>
+          <div className="flex items-center space-x-3">
+            <Dialog open={userLoginOpen} onOpenChange={setUserLoginOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 font-semibold transition-all hover:scale-105">
+                  <UserCheck className="w-4 h-4 mr-2" />
+                  User Login
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-center text-2xl font-bold text-gray-900">Welcome Back!</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="user-email">Email</Label>
+                    <Input id="user-email" type="email" placeholder="Enter your email" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="user-password">Password</Label>
+                    <Input id="user-password" type="password" placeholder="Enter your password" />
+                  </div>
+                  <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-xl">
+                    Sign In
+                  </Button>
+                  <p className="text-center text-sm text-gray-600">
+                    Don't have an account? <a href="#" className="text-green-600 hover:underline font-semibold">Sign up</a>
+                  </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={sellerLoginOpen} onOpenChange={setSellerLoginOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="border-blue-500 text-blue-600 hover:bg-blue-50 font-semibold transition-all hover:scale-105">
+                  <Store className="w-4 h-4 mr-2" />
+                  Seller Login
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-center text-2xl font-bold text-gray-900">Seller Portal</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="seller-email">Business Email</Label>
+                    <Input id="seller-email" type="email" placeholder="Enter your business email" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="seller-password">Password</Label>
+                    <Input id="seller-password" type="password" placeholder="Enter your password" />
+                  </div>
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-xl">
+                    Access Dashboard
+                  </Button>
+                  <p className="text-center text-sm text-gray-600">
+                    New partner? <a href="#" className="text-blue-600 hover:underline font-semibold">Join as seller</a>
+                  </p>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Button className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+              Get Started
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section id="home" className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 animate-fade-in">
-              <div className="space-y-4">
-                <Badge className="bg-green-100 text-green-700 px-4 py-2 text-sm font-medium">
-                  🎉 New User Bonus: Get $10 cashback on your first purchase!
+      {/* Enhanced Hero Section */}
+      <section id="home" className="py-24 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-orange-500/5 animate-pulse-glow"></div>
+        <div className="container mx-auto max-w-7xl relative">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-10 animate-fade-in">
+              <div className="space-y-6">
+                <Badge className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-6 py-3 text-sm font-semibold rounded-full shadow-lg animate-float">
+                  🎉 Limited Time: Get $25 cashback on your first purchase!
                 </Badge>
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                  Earn <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-600">Cashback</span> and <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Discounts</span> on Every Purchase
+                <h1 className="text-6xl lg:text-7xl font-black text-gray-900 leading-tight">
+                  Earn <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600 animate-pulse-glow">Massive</span> 
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">Cashback</span> 
+                  <br />
+                  Every Purchase
                 </h1>
-                <p className="text-xl text-gray-600 leading-relaxed">
-                  Shop through our website and enjoy exclusive rewards, instant cashbacks, and amazing discounts from over 1,000+ partner stores!
+                <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
+                  Transform your shopping into a rewarding experience. Get up to 25% cashback, exclusive discounts, and premium rewards from 2,000+ top brands.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
-                  Start Saving Today
+              <div className="flex flex-col sm:flex-row gap-6">
+                <Button size="lg" className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-6 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl transition-all transform hover:scale-110">
+                  Start Earning Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
-                <Button variant="outline" size="lg" className="border-2 border-green-500 text-green-600 hover:bg-green-50 px-8 py-4 rounded-full font-semibold text-lg transition-all">
-                  Learn More
+                <Button variant="outline" size="lg" className="border-2 border-green-500 text-green-600 hover:bg-green-50 px-10 py-6 rounded-2xl font-bold text-lg transition-all hover:scale-105">
+                  Watch Demo
                 </Button>
               </div>
               
-              <div className="flex items-center space-x-8 pt-4">
+              <div className="flex items-center space-x-12 pt-8">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">50K+</div>
-                  <div className="text-sm text-gray-600">Happy Users</div>
+                  <div className="text-3xl font-black text-gray-900">150K+</div>
+                  <div className="text-sm text-gray-600 font-medium">Active Users</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">$2M+</div>
-                  <div className="text-sm text-gray-600">Cashback Earned</div>
+                  <div className="text-3xl font-black text-gray-900">$5M+</div>
+                  <div className="text-sm text-gray-600 font-medium">Cashback Paid</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">1000+</div>
-                  <div className="text-sm text-gray-600">Partner Stores</div>
+                  <div className="text-3xl font-black text-gray-900">2000+</div>
+                  <div className="text-sm text-gray-600 font-medium">Brand Partners</div>
                 </div>
               </div>
             </div>
             
             <div className="relative animate-fade-in">
-              <div className="relative bg-gradient-to-br from-green-400 to-green-600 rounded-3xl p-8 shadow-2xl">
-                <div className="absolute -top-4 -right-4 w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">$50</span>
+              <div className="relative bg-gradient-to-br from-green-400 via-green-500 to-emerald-600 rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl animate-float">
+                  <span className="text-white font-black text-xl">$125</span>
                 </div>
-                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                  <Gift className="w-8 h-8 text-white" />
+                <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-2xl animate-float" style={{animationDelay: '1s'}}>
+                  <Gift className="w-10 h-10 text-white" />
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-xl">
-                  <div className="space-y-4">
+                <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                  <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-700 font-medium">Shopping Rewards</span>
-                      <Badge className="bg-green-100 text-green-700">Active</Badge>
+                      <span className="text-gray-700 font-bold text-lg">Your Rewards Dashboard</span>
+                      <Badge className="bg-green-100 text-green-700 font-bold">Premium</Badge>
                     </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">This Month's Cashback</span>
-                        <span className="font-bold text-green-600">$127.50</span>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600 font-medium">This Month's Cashback</span>
+                        <span className="font-black text-green-600 text-xl">$247.50</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Points Earned</span>
-                        <span className="font-bold text-orange-600">2,450 pts</span>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600 font-medium">Reward Points</span>
+                        <span className="font-black text-orange-600 text-xl">4,850 pts</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Discount Savings</span>
-                        <span className="font-bold text-blue-600">$89.30</span>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600 font-medium">Total Savings</span>
+                        <span className="font-black text-blue-600 text-xl">$1,234.90</span>
                       </div>
                     </div>
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full">
-                      <div className="bg-orange-500 h-2 rounded-full w-3/4"></div>
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 rounded-full shadow-inner">
+                      <div className="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full w-4/5 shadow-lg"></div>
                     </div>
+                    <p className="text-sm text-gray-500 text-center font-medium">80% to next reward tier</p>
                   </div>
                 </div>
               </div>
@@ -200,7 +276,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Social Proof Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center space-y-4 mb-16">
@@ -278,7 +353,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center space-y-4 mb-16">
@@ -326,7 +400,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-green-500 to-green-600">
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <div className="space-y-8">
@@ -362,7 +435,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8">
